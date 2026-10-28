@@ -49,7 +49,7 @@
     {{-- Barra de navegación --}}
     <nav class="navbar navbar-expand-md app-nav" data-bs-theme="dark">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ route('products.index') }}">
+            <a class="navbar-brand fw-bold" href="{{ route('dashboard') }}">
                 <i class="bi bi-box-seam-fill me-1"></i> ShopAdmin
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
@@ -57,26 +57,53 @@
             </button>
             <div class="collapse navbar-collapse" id="menuPrincipal">
                 <ul class="navbar-nav ms-auto gap-1">
+
+                    <li class="nav-item">
+                       <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+                            <i class="bi bi-speedometer2"></i> Inicio
+                        </a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}" href="{{ route('products.index') }}">
                             <i class="bi bi-box-seam"></i> Productos
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}" href="{{ route('categories.index') }}">
                             <i class="bi bi-tags"></i> Categorías
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}" href="{{ route('suppliers.index') }}">
                             <i class="bi bi-truck"></i> Proveedores
                         </a>
                     </li>
-                                        <li class="nav-item">
+                    
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('stock-movements.*') ? 'active' : '' }}" href="{{ route('stock-movements.index') }}">
                             <i class="bi bi-arrow-left-right"></i> Movimientos
                         </a>
                     </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> {{ auth()->user()->name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
         </div>
